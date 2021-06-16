@@ -9,7 +9,7 @@
 `markers`和`colors`为绘制点的样式和颜色
 `scale`乘积因子，获取最大的STD值`Smax`，然后将泰勒图限制在`Smax*scale`内
 `ms`即markersize，标记点大小
-`mkwargs`标记点的其他参数
+`mkwargs`标记点的其他参数，字典形式传入
 ## 示例
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(24, 6), dpi=300)
