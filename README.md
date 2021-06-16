@@ -3,13 +3,21 @@
 返回dia包含属性，他记录了所有绘制的点，可以直接调用`dia.ax.legend()`或`fig.legend()`，然后调整位置即可
 ## 接受参数
 `ax`, `ref`, `samples`, `markers`=[], `colors`=[], `scale`=1.2, `ms`=10, `mkwargs`={}
+
 `ax`为绘制的参考ax
+
 `ref`为`参考值`/`真值`的pandas.Series，即pandas.DataFrame的一列
+
 `samples`为样本的pandas.DatsFrame，多列
+
 `markers`和`colors`为绘制点的样式和颜色
+
 `scale`乘积因子，获取最大的STD值`Smax`，然后将泰勒图限制在`Smax*scale`内
+
 `ms`即markersize，标记点大小
-`mkwargs`标记点的其他参数，字典形式传入
+
+`mkwargs`标记点的其他参数，类型为字典
+
 ## 示例
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(24, 6), dpi=300)
