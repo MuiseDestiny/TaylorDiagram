@@ -34,5 +34,4 @@ for months, ax in zip([[12, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10, 11]], axes):
 fig.legend(dia.points, [p.get_label() for p in dia.points], loc='lower center', ncol=7, frameon=False, bbox_to_anchor=(0.1, 0, 0.8, 0.1))
 dia.points
 ```
-![IPNERC.png](https://s3.jpg.cm/2021/06/16/IPNERC.png)
-
+![IPNF1t.png](https://s3.jpg.cm/2021/06/16/IPNF1t.png)
