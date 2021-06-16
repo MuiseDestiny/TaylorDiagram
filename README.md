@@ -20,6 +20,11 @@
 
 ## 示例
 ```python
+import sys
+sys.path.append("F:/python/NASA/matplotlib_advanced/")  # taylor_diagram.py所在目录
+from taylor_diagram import TaylorDiagram
+```
+```python
 fig, axes = plt.subplots(1, 4, figsize=(24, 6), dpi=300)
 fig.subplots_adjust(bottom=0.15, top=0.8)
 for months, ax in zip([[12, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10, 11]], axes):
