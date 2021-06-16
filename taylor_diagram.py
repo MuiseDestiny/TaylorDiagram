@@ -63,10 +63,7 @@ class TaylorDiagram:
             grid_locator1=gl1, tick_formatter1=tf1,
             grid_locator2=gl2, tick_formatter2=tf2,
         )
-        ax = FA.FloatingSubplot(self.fig, 111, grid_helper=grid_helper)
-        ax = self.fig.add_subplot(ax)
-        ax.set_position([ll, bb, ww, hh])
-        # Adjust axes
+        ax = self.fig.add_axes([ll, bb, ww, hh], axes_class=FA.FloatingAxes, grid_helper=grid_helper)
         # theta
         ax.axis["top"].set_axis_direction("bottom")
         ax.axis["top"].toggle(ticklabels=True, label=True)
