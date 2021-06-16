@@ -8,7 +8,7 @@
 3. `numpy`
 
 ## 接受参数
-`ax`, `ref`, `samples`, `markers`=[], `colors`=[], `scale`=1.2, `ms`=10, `mkwargs`={}
+`ax`, `ref`, `samples`, `Normalize=False`, `markers`=[], `colors`=[], `scale`=1.2, `ms`=10, `mkwargs`={}
 
 `ax`为绘制的参考ax
 
@@ -23,6 +23,8 @@
 `ms`即markersize，标记点大小
 
 `mkwargs`标记点的其他参数，类型为字典
+
+`Normalize`是否归一化
 
 ## 示例
 ```python
@@ -41,3 +43,7 @@ fig.legend(dia.points, [p.get_label() for p in dia.points], loc='lower center', 
 dia.points
 ```
 ![IPNF1t.png](https://s3.jpg.cm/2021/06/16/IPNF1t.png)
+
+
+`Normalize=True`
+![IPStGE.png](https://s3.jpg.cm/2021/06/16/IPStGE.png)
