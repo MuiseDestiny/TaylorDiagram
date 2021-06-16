@@ -1,6 +1,12 @@
 # TaylorDiagram
 绘制泰勒图，比其它库相比，可以指定绘制的ax，可调参数更灵活，需要手动添加legend
 返回dia包含属性，他记录了所有绘制的点，可以直接调用`dia.ax.legend()`或`fig.legend()`，然后调整位置即可
+## 所需库
+![matplotlib](https://matplotlib.org/stable/_static/logo2_compressed.svg)
+matplotlib 3.4.2及以上
+pandas
+numpy
+
 ## 接受参数
 `ax`, `ref`, `samples`, `markers`=[], `colors`=[], `scale`=1.2, `ms`=10, `mkwargs`={}
 
