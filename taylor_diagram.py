@@ -6,6 +6,7 @@ import dask.dataframe as dd
 from matplotlib.projections import PolarAxes
 import mpl_toolkits.axisartist.floating_axes as FA
 import mpl_toolkits.axisartist.grid_finder as GF
+from matplotlib.transforms import Affine2D
 
 
 class TaylorDiagram:
@@ -14,11 +15,11 @@ class TaylorDiagram:
     samples: pandas.DataFrame multiple columns
     """
 
-    def __init__(self, ax, ref, samples, Normalize=False, markers=[], colors=[], scale=1.2, ms=10, mkwargs={}):
+    def __init__(self, ax, ref, samples, Normalize=False, markers=[], colors=[], scale=1.2, ms=10, pkwargs={}):
         self.points = []
         self.Normalize = Normalize
-        self.mkwargs = mkwargs
-        self.markers = markers if len(markers) else ['^', 'o', 's', 'v', 'o', 's', 'v']
+        self.pkwargs = pkwargs
+        self.markers = markers if len(markers) else ['o', 'o', 's', 'v', 'o', 's', 'v']
         self.colors = colors if len(colors) else ['tab:blue', 'tab:red', 'tab:red', 'tab:red', 'tab:green', 'tab:green', 'tab:green']
         self.ms = ms
         self.ref = ref
@@ -63,7 +64,7 @@ class TaylorDiagram:
             grid_locator1=gl1, tick_formatter1=tf1,
             grid_locator2=gl2, tick_formatter2=tf2,
         )
-        ax = self.fig.add_axes([ll, bb, ww, hh], axes_class=FA.FloatingAxes, grid_helper=grid_helper)
+        ax = self.fig.add_axes([ll, bb, ww, hh], facecolor='none', axes_class=FA.FloatingAxes, grid_helper=grid_helper)
         # theta
         ax.axis["top"].set_axis_direction("bottom")
         ax.axis["top"].toggle(ticklabels=True, label=True)
@@ -98,16 +99,18 @@ class TaylorDiagram:
         self.ax.clabel(contours, contours.levels, inline=True, fmt='%.1f', fontsize=10)
         # 绘制参考点
         p, = self.ax.plot(0, self.refstd, linestyle='', marker=self.markers[0], color=self.colors[0],
-                          markersize=self.ms, alpha=0.5, **self.mkwargs)
+                          markersize=self.ms, alpha=0.5, **self.pkwargs)
         p.set_label(self.ref.name)
+        p.set_clip_on(False)  # reference点不被裁剪
         self.points.append(p)
+
 
     def plot_sample(self):
         stds = []
         for col, marker, color in zip(self.samples.columns, self.markers[1:], self.colors[1:]):
             t, s = self.calc_loc(self.ref, self.samples[col])
             p, = self.ax.plot(t, s, linestyle='', marker=marker, color=color, 
-                              markersize=self.ms, alpha=.5, **self.mkwargs)
+                              markersize=self.ms, alpha=.5, **self.pkwargs)
             p.set_label(col)
             self.points.append(p)
             stds.append(s)
@@ -126,5 +129,5 @@ if __name__ == "__main__":
         'F:/MeteorologicalData/point-grid/station-6satellite-pure-BeijingTime-New.csv').head(1000000000)
     print(df)
     fig, axes = plt.subplots(1, 3, figsize=(12, 6))
-    td = TaylorDiagram(axes[0], df.iloc[:, 5], df.iloc[:, 6:], ms=8, Normalize=True, scale=1.5)
+    td = TaylorDiagram(axes[0], df.iloc[:, 5], df.iloc[:, 6:], ms=20, Normalize=True, scale=1.5)
     plt.show()
