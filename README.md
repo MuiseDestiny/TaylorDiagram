@@ -56,3 +56,7 @@ fig.legend(dia.points, [p.get_label() for p in dia.points], loc='lower center', 
 dia.points
 ```
 ![IPStGE.png](https://s3.jpg.cm/2021/06/16/IPStGE.png)
+
+## 特性
+markersize再大也会显示，不会被裁剪
+![](https://ftp.bmp.ovh/imgs/2021/06/8d51832859e82654.png)
