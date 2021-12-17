@@ -19,8 +19,8 @@ class TaylorDiagram:
         self.points = []
         self.Normalize = Normalize
         self.pkwargs = pkwargs
-        self.markers = markers if len(markers) else ['o', 'o', 's', 'v', 'o', 's', 'v']
-        self.colors = colors if len(colors) else ['tab:blue', 'tab:red', 'tab:red', 'tab:red', 'tab:green', 'tab:green', 'tab:green']
+        self.markers = markers if len(markers) else ['o', 'o', 's', 'v', 'o', 's', 'v'] * 100
+        self.colors = colors if len(colors) else ['tab:blue', 'tab:red', 'tab:red', 'tab:red', 'tab:green', 'tab:green', 'tab:green', '#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#34495e']
         self.ms = ms
         self.ref = ref
         self.scale = scale
@@ -36,7 +36,7 @@ class TaylorDiagram:
         R = x.corr(other=y, method='pearson')
         theta = np.arccos(R)
         r = y.std()
-        return theta, r / self.refstd if self.Normalize else r
+        return theta, r / self._refstd if self.Normalize else r
 
     def step_up(self, ax):
         # close the original axis
@@ -51,10 +51,10 @@ class TaylorDiagram:
         gl1 = GF.FixedLocator(Tlocs)  # theta locator
         tf1 = GF.DictFormatter(dict(zip(Tlocs, map(str, Rlocs))))  # theta formatter
         # std range
-        self.refstd = self.ref.std()
-        self.stdmax = max([self.samples[col].std() for col in self.samples.columns] + [self.refstd])
+        self._refstd = self.ref.std()
+        self.stdmax = max([self.samples[col].std() for col in self.samples.columns] + [self._refstd])
         self.Smax = (1 if self.Normalize else self.stdmax)* self.scale
-        self.refstd = 1 if self.Normalize else self.refstd
+        self.refstd = 1 if self.Normalize else self._refstd
         Slocs = np.linspace(0, self.Smax, 4)
         gl2 = GF.FixedLocator(Slocs)  # theta locator
         tf2 = GF.DictFormatter(dict(zip(Slocs, map(lambda i: '%.1f' % i, Slocs))))  # theta formatter
@@ -122,6 +122,7 @@ class TaylorDiagram:
                        loc='lower center', 
                        frameon=False, 
                        bbox_to_anchor=(ll, bb - hh*0.3, ww, hh*0.1))
+        
 
 if __name__ == "__main__":
     print('read data')
